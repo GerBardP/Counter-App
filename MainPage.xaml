@@ -1,0 +1,39 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Counter"
+             x:Class="Counter.MainPage">
+    <ScrollView>
+        <VerticalStackLayout Padding="30">
+            <Label Text="Licznik" FontSize="Large" HorizontalOptions="Center" />
+
+            <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                <Entry x:Name="InitialValueEntry" Placeholder="Wartość początkowa" Keyboard="Numeric" WidthRequest="150"/>
+                <Button Text="Dodaj licznik" Clicked="OnAddCounterClicked" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                <Label Text="Wprowadź kolor hex:" VerticalOptions="Center" />
+                <Entry x:Name="ColorEntry" Placeholder="#000000" Keyboard="Text" WidthRequest="150"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Padding="20" Spacing="10" HorizontalOptions="Center">
+                <Label x:Name="ShowValidate" Text="" VerticalOptions="Center" />
+            </HorizontalStackLayout>
+            <CollectionView x:Name="CounterListView" ItemsSource="{Binding Counters}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout Padding="10" BackgroundColor="{Binding CounterColor}">
+                            <Label Text="{Binding Name}" FontSize="Medium" HorizontalOptions="Center" />
+                            <Label Text="{Binding Value}" FontSize="Large" HorizontalOptions="Center" x:Name="CounterValueLabel" />
+                            <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                                <Button Text="-" Command="{Binding Source={RelativeSource AncestorType={x:Type local:MainPage}}, Path=DecrementCommand}" CommandParameter="{Binding .}" />
+                                <Button Text="+" Command="{Binding Source={RelativeSource AncestorType={x:Type local:MainPage}}, Path=IncrementCommand}" CommandParameter="{Binding .}" />
+                                <Button Text="Reset" Command="{Binding Source={RelativeSource AncestorType={x:Type local:MainPage}}, Path=ResetCommand}" CommandParameter="{Binding .}" />
+                                <Button Text="Usuń" Command="{Binding Source={RelativeSource AncestorType={x:Type local:MainPage}}, Path=DeleteCommand}" CommandParameter="{Binding .}" />
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
